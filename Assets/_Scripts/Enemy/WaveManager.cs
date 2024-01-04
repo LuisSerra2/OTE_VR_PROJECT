@@ -45,7 +45,7 @@ public class WaveManager : MonoBehaviour {
     }
 
     private IEnumerator WaveSpawner() {
-        if (currentWaveIndex < waves.Length) {
+        if (currentWaveIndex <= waves.Length) {
             for (int i = 0; i < waves[currentWaveIndex].enemies.Length; i++) {
                 GameObject enemiesClone = Instantiate(waves[currentWaveIndex].enemies[i], enemiesSpawnPoint[Random.Range(0, enemiesSpawnPoint.Length)].transform.position, Quaternion.identity);
 
