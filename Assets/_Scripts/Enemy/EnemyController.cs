@@ -17,7 +17,8 @@ public class EnemyController : MonoBehaviour, IHittable {
     public HealthSystem _healthSystem;
     private CameraTakeDamageVisualEffect cameraTakeDamageVisualEffect;
 
-    private void Start() {
+    private void Start()
+    {
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyObjective = FindObjectOfType<EnemyObjective>();
         cameraTakeDamageVisualEffect = FindObjectOfType<CameraTakeDamageVisualEffect>();
@@ -25,7 +26,8 @@ public class EnemyController : MonoBehaviour, IHittable {
         _healthSystem = new HealthSystem(health);
     }
 
-    private void Update() {
+    private void Update()
+    {
         agent.SetDestination(target.transform.position);
 
         if (enemyObjective != null) {
@@ -41,8 +43,16 @@ public class EnemyController : MonoBehaviour, IHittable {
             }
         }
     }
-    public void GetHit() {
+    public void GetHit()
+    {
         enemyManager.HitEnemy(gameObject);
         _healthSystem.TakeDamage(1);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Barrel")) {
+            Debug.Log("BARREL");
+        }
     }
 }

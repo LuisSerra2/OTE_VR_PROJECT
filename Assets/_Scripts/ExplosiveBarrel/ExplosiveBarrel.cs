@@ -1,0 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ExplosiveBarrel : MonoBehaviour, IHittable {
+
+
+    public void GetHit()
+    {
+        
+    }
+}
