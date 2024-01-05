@@ -18,10 +18,9 @@ public class EnemyController : Singleton<EnemyController>, IHittable {
     private CameraTakeDamageVisualEffect cameraTakeDamageVisualEffect;
 
     public bool isInsideBarrelRange;
-    List<GameObject> enemiesInBarrelRange = new List<GameObject>();
 
-    private void Start()
-    {
+
+    private void Start() {
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyObjective = FindObjectOfType<EnemyObjective>();
         cameraTakeDamageVisualEffect = FindObjectOfType<CameraTakeDamageVisualEffect>();
@@ -29,8 +28,7 @@ public class EnemyController : Singleton<EnemyController>, IHittable {
         _healthSystem = new HealthSystem(health);
     }
 
-    private void Update()
-    {
+    private void Update() {
         agent.SetDestination(target.transform.position);
 
         if (enemyObjective != null) {
@@ -46,35 +44,30 @@ public class EnemyController : Singleton<EnemyController>, IHittable {
             }
         }
     }
-    public void GetHit()
-    {
+    public void GetHit() {
         enemyManager.HitEnemy(gameObject);
         _healthSystem.TakeDamage(1);
     }
 
-    public void BarrelExplode()
-    {
+    public void BarrelExplode() {
         if (isInsideBarrelRange) {
-            foreach (GameObject obj in enemiesInBarrelRange) {
-                enemyManager.HitEnemy(obj);
-                _healthSystem.TakeDamage(2);
-            }
+            foreach (GameObject hit in enemyManager.enemiesInBarrelRange)
+            enemyManager.HitEnemy(hit);
+            _healthSystem.TakeDamage(2);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
+    private void OnTriggerEnter(Collider other) {
         if (other.gameObject.name == "Trigger") {
             isInsideBarrelRange = true;
-            enemiesInBarrelRange.Add(this.gameObject);
+            enemyManager.enemiesInBarrelRange.Add(this.gameObject);
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
+    private void OnTriggerExit(Collider other) {
         if (other.gameObject.name == "Trigger") {
             isInsideBarrelRange = false;
-            enemiesInBarrelRange.Remove(this.gameObject);
+            enemyManager.enemiesInBarrelRange.Remove(this.gameObject);
         }
     }
 }

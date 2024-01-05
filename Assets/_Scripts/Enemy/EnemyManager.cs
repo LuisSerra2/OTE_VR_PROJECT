@@ -17,6 +17,7 @@ public class EnemyManager : MonoBehaviour {
     GameObject enemyRagdollClone;
     GameObject bloodPSClone;
 
+    public List<GameObject> enemiesInBarrelRange = new List<GameObject>();
 
     private void Start() {
         waveManager = FindObjectOfType<WaveManager>();
