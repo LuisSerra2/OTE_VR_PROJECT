@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour, IHittable {
+public class EnemyController : Singleton<EnemyController>, IHittable {
     public GameObject target;
 
     public NavMeshAgent agent;
@@ -16,6 +16,9 @@ public class EnemyController : MonoBehaviour, IHittable {
 
     public HealthSystem _healthSystem;
     private CameraTakeDamageVisualEffect cameraTakeDamageVisualEffect;
+
+    public bool isInsideBarrelRange;
+    List<GameObject> enemiesInBarrelRange = new List<GameObject>();
 
     private void Start()
     {
@@ -49,10 +52,29 @@ public class EnemyController : MonoBehaviour, IHittable {
         _healthSystem.TakeDamage(1);
     }
 
+    public void BarrelExplode()
+    {
+        if (isInsideBarrelRange) {
+            foreach (GameObject obj in enemiesInBarrelRange) {
+                enemyManager.HitEnemy(obj);
+                _healthSystem.TakeDamage(2);
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Barrel")) {
-            Debug.Log("BARREL");
+        if (other.gameObject.name == "Trigger") {
+            isInsideBarrelRange = true;
+            enemiesInBarrelRange.Add(this.gameObject);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "Trigger") {
+            isInsideBarrelRange = false;
+            enemiesInBarrelRange.Remove(this.gameObject);
         }
     }
 }

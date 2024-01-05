@@ -29,9 +29,6 @@ public class EnemyManager : MonoBehaviour {
                 hitInfo.collider.transform.parent.GetComponent<IHittable>()?.GetHit();
             }
         }
-        if (Input.GetKey(KeyCode.F)) {
-            waveManager.readyToCoutDown = true;
-        }
     }
 
     public void HitEnemy(GameObject hitEnemy) {
