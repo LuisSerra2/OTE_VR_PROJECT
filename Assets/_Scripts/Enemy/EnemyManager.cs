@@ -17,7 +17,6 @@ public class EnemyManager : MonoBehaviour {
     GameObject enemyRagdollClone;
     GameObject bloodPSClone;
 
-    public List<GameObject> enemiesInBarrelRange = new List<GameObject>();
 
     private void Start() {
         waveManager = FindObjectOfType<WaveManager>();
@@ -43,13 +42,27 @@ public class EnemyManager : MonoBehaviour {
             hitEnemy.transform.GetChild(0).GetChild(1).GetComponent<Renderer>().material.color = Color.white;
         }
         if (hitEnemy.GetComponent<EnemyController>()._healthSystem.IsDead()) {
+
+            foreach (ExplosiveBarrel barrel in FindObjectsOfType<ExplosiveBarrel>()) {
+                if (barrel != null) {
+                    if (barrel.enemiesInBarrelRange.Contains(hitEnemy)) {
+                        barrel.enemiesInBarrelRange.Remove(hitEnemy);
+                    }
+                }
+            }
+
+
             bloodPSClone = Instantiate(bloodPS, new Vector3(hitEnemy.transform.position.x, 2, hitEnemy.transform.position.z), Quaternion.identity);
+
             Destroy(hitEnemy);
+
             waveManager.waves[waveManager.currentWaveIndex].enemiesLeft--;
+
             enemyRagdollClone = Instantiate(enemyRagdoll, hitEnemy.transform.position, Quaternion.identity);
-            bloodPSClone.transform.SetParent(enemyRagdollClone.transform);
             enemyRagdollClone.transform.GetChild(3).GetComponent<Rigidbody>().AddForce(Vector3.forward * 2000, ForceMode.Force);
             enemyRagdollClone.GetComponent<EnemyRagdoll>().DestroyThisObject();
+
+            bloodPSClone.transform.SetParent(enemyRagdollClone.transform);
 
         } else {
             bloodPSClone = Instantiate(bloodPS, new Vector3(hitEnemy.transform.position.x, 2, hitEnemy.transform.position.z), Quaternion.identity);

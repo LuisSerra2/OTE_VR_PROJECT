@@ -17,8 +17,6 @@ public class EnemyController : Singleton<EnemyController>, IHittable {
     public HealthSystem _healthSystem;
     private CameraTakeDamageVisualEffect cameraTakeDamageVisualEffect;
 
-    public bool isInsideBarrelRange;
-
 
     private void Start() {
         enemyManager = FindObjectOfType<EnemyManager>();
@@ -49,25 +47,28 @@ public class EnemyController : Singleton<EnemyController>, IHittable {
         _healthSystem.TakeDamage(1);
     }
 
-    public void BarrelExplode() {
-        if (isInsideBarrelRange) {
-            foreach (GameObject hit in enemyManager.enemiesInBarrelRange)
-            enemyManager.HitEnemy(hit);
+    public void BarrelExplode(GameObject barrel) {
+        if (barrel.GetComponent<ExplosiveBarrel>().enemiesInBarrelRange.Count > 0) {
             _healthSystem.TakeDamage(2);
+
+            List<GameObject> enemiesToRemove = new List<GameObject>(barrel.GetComponent<ExplosiveBarrel>().enemiesInBarrelRange);
+
+            foreach (GameObject hit in enemiesToRemove) {
+                enemyManager.HitEnemy(hit);
+                barrel.GetComponent<ExplosiveBarrel>().enemiesInBarrelRange.Remove(hit);
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.name == "Trigger") {
-            isInsideBarrelRange = true;
-            enemyManager.enemiesInBarrelRange.Add(this.gameObject);
+            other.gameObject.transform.parent.GetComponent<ExplosiveBarrel>().enemiesInBarrelRange.Add(this.gameObject);
         }
     }
 
     private void OnTriggerExit(Collider other) {
         if (other.gameObject.name == "Trigger") {
-            isInsideBarrelRange = false;
-            enemyManager.enemiesInBarrelRange.Remove(this.gameObject);
+            other.gameObject.transform.parent.GetComponent<ExplosiveBarrel>().enemiesInBarrelRange.Remove(this.gameObject);
         }
     }
 }

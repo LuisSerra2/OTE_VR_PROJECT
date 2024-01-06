@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosiveBarrel : MonoBehaviour, IHittable {
+public class ExplosiveBarrel : Singleton<ExplosiveBarrel>, IHittable {
 
-    public void GetHit()
-    {
-        if (EnemyController.Instance != null) {
-            EnemyController.Instance.BarrelExplode();
+    public List<GameObject> enemiesInBarrelRange = new List<GameObject>();
+
+    public void GetHit() {
+        if (enemiesInBarrelRange.Count > 0) {
+            EnemyController.Instance.BarrelExplode(this.gameObject);
+            Destroy(gameObject);
+        } else {
             Destroy(gameObject);
         }
     }
