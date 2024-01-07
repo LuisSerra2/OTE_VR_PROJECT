@@ -9,8 +9,10 @@ public class ExplosiveBarrel : Singleton<ExplosiveBarrel>, IHittable {
     public void GetHit() {
         if (enemiesInBarrelRange.Count > 0) {
             EnemyController.Instance.BarrelExplode(this.gameObject);
+            ExplosiveBarrelManager.Instance.SpawnExplosiveEffect(this.gameObject);
             Destroy(gameObject);
         } else {
+            ExplosiveBarrelManager.Instance.SpawnExplosiveEffect(this.gameObject);
             Destroy(gameObject);
         }
     }
