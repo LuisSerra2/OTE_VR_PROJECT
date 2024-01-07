@@ -24,5 +24,6 @@ public class UIManager : Singleton<UIManager>
     public void GoToTrainingGrounds()
     {
         Debug.Log("Training...");
+        SceneManager.LoadScene("TrainningGround");
     }
 }
