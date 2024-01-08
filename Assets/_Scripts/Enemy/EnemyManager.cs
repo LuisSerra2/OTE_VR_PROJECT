@@ -31,7 +31,9 @@ public class EnemyManager : MonoBehaviour {
         }
     }
 
-    public void HitEnemy(GameObject hitEnemy) {
+    public void HitEnemy(GameObject hitEnemy, int damage) {
+        hitEnemy.GetComponent<EnemyController>()._healthSystem.TakeDamage(damage);
+
         if (hitEnemy.GetComponent<EnemyController>()._healthSystem.IsHealth()) {
             foreach (Renderer variableName in hitEnemy.GetComponentsInChildren<Renderer>()) {
                 variableName.material.color = Color.red;
@@ -54,9 +56,9 @@ public class EnemyManager : MonoBehaviour {
 
             bloodPSClone = Instantiate(bloodPS, new Vector3(hitEnemy.transform.position.x, 2, hitEnemy.transform.position.z), Quaternion.identity);
 
+            WaveManager.OnEnemyDestroy?.Invoke();
             Destroy(hitEnemy);
 
-            waveManager.waves[waveManager.currentWaveIndex].enemiesLeft--;
 
             enemyRagdollClone = Instantiate(enemyRagdoll, hitEnemy.transform.position, Quaternion.identity);
             enemyRagdollClone.transform.GetChild(3).GetComponent<Rigidbody>().AddForce(Vector3.forward * 2000, ForceMode.Force);

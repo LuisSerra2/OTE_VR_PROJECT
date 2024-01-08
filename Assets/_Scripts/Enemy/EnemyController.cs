@@ -13,6 +13,7 @@ public class EnemyController : Singleton<EnemyController>, IHittable {
 
     private EnemyManager enemyManager;
     private EnemyObjective enemyObjective;
+    private WaveManager waveManager;
 
     public HealthSystem _healthSystem;
     private CameraTakeDamageVisualEffect cameraTakeDamageVisualEffect;
@@ -22,6 +23,7 @@ public class EnemyController : Singleton<EnemyController>, IHittable {
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyObjective = FindObjectOfType<EnemyObjective>();
         cameraTakeDamageVisualEffect = FindObjectOfType<CameraTakeDamageVisualEffect>();
+        waveManager = FindObjectOfType<WaveManager>();
 
         _healthSystem = new HealthSystem(health);
     }
@@ -43,18 +45,16 @@ public class EnemyController : Singleton<EnemyController>, IHittable {
         }
     }
     public void GetHit() {
-        enemyManager.HitEnemy(gameObject);
-        _healthSystem.TakeDamage(1);
+        enemyManager.HitEnemy(gameObject, 1);
     }
 
     public void BarrelExplode(GameObject barrel) {
         if (barrel.GetComponent<ExplosiveBarrel>().enemiesInBarrelRange.Count > 0) {
-            _healthSystem.TakeDamage(2);
 
             List<GameObject> enemiesToRemove = new List<GameObject>(barrel.GetComponent<ExplosiveBarrel>().enemiesInBarrelRange);
 
             foreach (GameObject hit in enemiesToRemove) {
-                enemyManager.HitEnemy(hit);
+                enemyManager.HitEnemy(hit, 2);
                 barrel.GetComponent<ExplosiveBarrel>().enemiesInBarrelRange.Remove(hit);
             }
         }

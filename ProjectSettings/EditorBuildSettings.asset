@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GodinhoScene.unity
+    path: Assets/_Scenes/GodinhoScene.unity
     guid: 79e80251ec1ef8c43a74d7a2b0a3a3db
   - enabled: 1
-    path: Assets/Scenes/TrainningGround.unity
+    path: Assets/_Scenes/TrainningGround.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/ProtectTheDoor.unity
+    path: Assets/_Scenes/ProtectTheDoor.unity
     guid: 24bba60ab89553e4d997c835f9db559b
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: d0a00d3bedd23ac4e822693611b102a9,

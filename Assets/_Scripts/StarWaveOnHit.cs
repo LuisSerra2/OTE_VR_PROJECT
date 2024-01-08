@@ -10,6 +10,6 @@ public class StarWaveOnHit : MonoBehaviour, IHittable {
         waveManager = FindObjectOfType<WaveManager>();
     }
     public void GetHit() {
-        waveManager.readyToCoutDown = true;
+        waveManager.StartWave();
     }
 }
