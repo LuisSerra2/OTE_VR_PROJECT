@@ -5,13 +5,14 @@ using UnityEngine;
 public class BowSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject bowPrefab;
+    [SerializeField] private GameObject bowSpawnPoint;
 
     private void SpawnBow() {
-        Instantiate(bowPrefab);
+        Instantiate(bowPrefab, bowSpawnPoint.transform.position, Quaternion.identity);
     }
 
     private void OnTriggerEnter(Collider other) {
         SpawnBow();
-        Destroy(gameObject, 1f);
+        Destroy(gameObject);
     }
 }
