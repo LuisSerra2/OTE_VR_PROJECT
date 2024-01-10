@@ -12,6 +12,8 @@ public class EnemyObjective : MonoBehaviour
     private void Update() {
         if (_healthSystem != null) {
             if (_healthSystem.IsDead()) {
+                AudioSource audio = gameObject.transform.parent.GetComponent<AudioSource>();
+                audio.Play();
                 Destroy(gameObject);
             }
         }

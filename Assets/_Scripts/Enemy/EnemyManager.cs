@@ -13,10 +13,9 @@ public class EnemyManager : MonoBehaviour {
     public LayerMask enemyLayerMask;
 
     private WaveManager waveManager;
-
+    
     GameObject enemyRagdollClone;
     GameObject bloodPSClone;
-
 
     private void Start() {
         waveManager = FindObjectOfType<WaveManager>();
@@ -31,9 +30,9 @@ public class EnemyManager : MonoBehaviour {
         }
     }
 
-    public void HitEnemy(GameObject hitEnemy, int damage) {
+    public void HitEnemy(GameObject hitEnemy, int damage, AudioSource shout, AudioSource hurt) {
         hitEnemy.GetComponent<EnemyController>()._healthSystem.TakeDamage(damage);
-
+        hurt.Play();
         if (hitEnemy.GetComponent<EnemyController>()._healthSystem.IsHealth()) {
             foreach (Renderer variableName in hitEnemy.GetComponentsInChildren<Renderer>()) {
                 variableName.material.color = Color.red;
@@ -44,7 +43,8 @@ public class EnemyManager : MonoBehaviour {
             hitEnemy.transform.GetChild(0).GetChild(1).GetComponent<Renderer>().material.color = Color.white;
         }
         if (hitEnemy.GetComponent<EnemyController>()._healthSystem.IsDead()) {
-
+            shout.Stop();
+            
             foreach (ExplosiveBarrel barrel in FindObjectsOfType<ExplosiveBarrel>()) {
                 if (barrel != null) {
                     if (barrel.enemiesInBarrelRange.Contains(hitEnemy)) {
@@ -64,11 +64,12 @@ public class EnemyManager : MonoBehaviour {
             enemyRagdollClone.transform.GetChild(3).GetComponent<Rigidbody>().AddForce(Vector3.forward * 2000, ForceMode.Force);
             enemyRagdollClone.GetComponent<EnemyRagdoll>().DestroyThisObject();
 
-            bloodPSClone.transform.SetParent(enemyRagdollClone.transform);
+            Destroy(bloodPSClone, 3f);
 
         } else {
             bloodPSClone = Instantiate(bloodPS, new Vector3(hitEnemy.transform.position.x, 2, hitEnemy.transform.position.z), Quaternion.identity);
             bloodPSClone.transform.SetParent(hitEnemy.transform.parent);
+            Destroy(bloodPSClone, 3f);
         }
     }
 }

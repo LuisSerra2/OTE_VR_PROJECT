@@ -18,6 +18,9 @@ public class EnemyController : Singleton<EnemyController>, IHittable {
     public HealthSystem _healthSystem;
     private CameraTakeDamageVisualEffect cameraTakeDamageVisualEffect;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource[] enemyAudio;
+
 
     private void Start() {
         enemyManager = FindObjectOfType<EnemyManager>();
@@ -26,6 +29,7 @@ public class EnemyController : Singleton<EnemyController>, IHittable {
         waveManager = FindObjectOfType<WaveManager>();
 
         _healthSystem = new HealthSystem(health);
+        enemyAudio[0].pitch = Random.Range(0.8f, 1.5f);
     }
 
     private void Update() {
@@ -45,7 +49,7 @@ public class EnemyController : Singleton<EnemyController>, IHittable {
         }
     }
     public void GetHit() {
-        enemyManager.HitEnemy(gameObject, 1);
+        enemyManager.HitEnemy(gameObject, 1, enemyAudio[0], enemyAudio[1]);
     }
 
     public void BarrelExplode(GameObject barrel) {
@@ -54,7 +58,7 @@ public class EnemyController : Singleton<EnemyController>, IHittable {
             List<GameObject> enemiesToRemove = new List<GameObject>(barrel.GetComponent<ExplosiveBarrel>().enemiesInBarrelRange);
 
             foreach (GameObject hit in enemiesToRemove) {
-                enemyManager.HitEnemy(hit, 2);
+                enemyManager.HitEnemy(hit, 2, enemyAudio[0], enemyAudio[1]);
                 barrel.GetComponent<ExplosiveBarrel>().enemiesInBarrelRange.Remove(hit);
             }
         }
