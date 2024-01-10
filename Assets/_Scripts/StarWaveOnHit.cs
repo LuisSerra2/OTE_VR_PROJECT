@@ -6,10 +6,17 @@ public class StarWaveOnHit : MonoBehaviour, IHittable {
 
     private WaveManager waveManager;
 
+    private int countStart = 0;
+
     private void Start() {
         waveManager = FindObjectOfType<WaveManager>();
     }
     public void GetHit() {
-        waveManager.StartWave();
+        if (countStart <= 0) {
+            waveManager.StartWave();
+            countStart++;
+        } else {
+            waveManager.enemiesAlive = 0;
+        }
     }
 }

@@ -30,6 +30,10 @@ public class WaveManager : MonoBehaviour {
         OnEnemyDestroy.AddListener(() => EnemyDestroy());
     }
 
+    private void Start() {
+        UIManager.Instance.waveCounterText.text = "0 / 10";
+    }
+
     private void Update() {
         if (!isSpawning) return;
 
@@ -59,6 +63,7 @@ public class WaveManager : MonoBehaviour {
 
         yield return new WaitForSeconds(timeBetweenWaves);
 
+        UIManager.Instance.waveCounterText.text = currentWave.ToString() + " / 10";
         isSpawning = true;
         enemiesLeftToSpawn = EnemiesPerWave();
     }
@@ -76,7 +81,7 @@ public class WaveManager : MonoBehaviour {
     }
 
     private void SpawnEnemy() {
-        GameObject prefabToSpaw = enemiesPrefab[Random.Range(0, enemiesSpawnpoint.Length)];
+        GameObject prefabToSpaw = enemiesPrefab[Random.Range(0, enemiesPrefab.Length)];
         Instantiate(prefabToSpaw, enemiesSpawnpoint[Random.Range(0, enemiesSpawnpoint.Length)].transform.position, Quaternion.identity);
     }
 

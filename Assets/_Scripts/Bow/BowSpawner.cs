@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BowSpawner : MonoBehaviour
-{
+public class BowSpawner : MonoBehaviour {
     [SerializeField] private GameObject bowPrefab;
     [SerializeField] private GameObject bowSpawnPoint;
 
@@ -12,7 +11,9 @@ public class BowSpawner : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        SpawnBow();
-        Destroy(gameObject);
+        if (other.gameObject.name == "BowTrigger" || other.gameObject.name == "BowTrigger2") {
+            SpawnBow();
+            Destroy(gameObject);
+        }
     }
 }

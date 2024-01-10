@@ -1303,7 +1303,7 @@ GameObject:
   - component: {fileID: 6227502277320644706}
   - component: {fileID: 2638535391196810370}
   - component: {fileID: 6468135811028342845}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EnemyRagdoll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
