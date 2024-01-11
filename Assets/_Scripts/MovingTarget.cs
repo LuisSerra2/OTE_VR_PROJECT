@@ -44,6 +44,7 @@ public class MovingTarget : MonoBehaviour, IHittable
         health--;
         if(health <= 0)
         {
+            UIManager.Instance.TrainingScore++;
             rb.isKinematic = false;
             stopped = true;
         }

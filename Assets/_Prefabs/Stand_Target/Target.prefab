@@ -74,8 +74,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe843aa0bd5adf4bb6878c9a0b00da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1087327328661341165}
-  playerCamera: {fileID: 0}
   health: 1
   audioSource: {fileID: 1612217253407875261}
   arriveThreshold: 0.01
@@ -190,6 +188,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: targetA (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4495502104258463763, guid: 8c5e3692b9f6fcc419c00988b282150a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7060614706493050057, guid: 8c5e3692b9f6fcc419c00988b282150a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -245,12 +248,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c5e3692b9f6fcc419c00988b282150a, type: 3}
---- !u!1 &1087327328661341165 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4495502104258463763, guid: 8c5e3692b9f6fcc419c00988b282150a,
-    type: 3}
-  m_PrefabInstance: {fileID: 3563980259067415550}
-  m_PrefabAsset: {fileID: 0}
 --- !u!82 &1612217253407875261 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 2822193621386013507, guid: 8c5e3692b9f6fcc419c00988b282150a,
