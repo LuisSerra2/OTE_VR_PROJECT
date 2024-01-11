@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,23 +19,30 @@ public class WaveManager : MonoBehaviour {
     public static UnityEvent OnEnemyDestroy = new UnityEvent();
 
     public int currentWave = 1;
-    
+
     [Space]
     private float timeSinceLastSpawn;
     public int enemiesAlive;
     public int enemiesLeftToSpawn;
     public bool isSpawning = false;
+    public bool loseCondition = false;
 
+    [Space]
 
-    private void Awake() {
+    [SerializeField] private GameObject[] fireWorksprefab;
+
+    private void Awake()
+    {
         OnEnemyDestroy.AddListener(() => EnemyDestroy());
     }
 
-    private void Start() {
+    private void Start()
+    {
         UIManager.Instance.waveCounterText.text = "0 / 10";
     }
 
-    private void Update() {
+    private void Update()
+    {
         if (!isSpawning) return;
 
         timeSinceLastSpawn += Time.deltaTime;
@@ -45,21 +53,30 @@ public class WaveManager : MonoBehaviour {
             enemiesAlive++;
             timeSinceLastSpawn = 0f;
         }
+        if (loseCondition) return;
 
+        if (enemiesAlive == 0 && enemiesLeftToSpawn == 0 && currentWave == 10) {
+            UIManager.Instance.UpdateText("WIN");
+            return;
+        }
         if (enemiesAlive == 0 && enemiesLeftToSpawn == 0) {
+            SpawnFireWorks();
             EndWave();
         }
     }
 
-    private void EnemyDestroy() {
+    private void EnemyDestroy()
+    {
         enemiesAlive--;
     }
 
-    public void StartWave() {
+    public void StartWave()
+    {
         StartCoroutine(StartWaveIE());
     }
 
-    private IEnumerator StartWaveIE() {
+    private IEnumerator StartWaveIE()
+    {
 
         yield return new WaitForSeconds(timeBetweenWaves);
 
@@ -67,7 +84,8 @@ public class WaveManager : MonoBehaviour {
         isSpawning = true;
         enemiesLeftToSpawn = EnemiesPerWave();
     }
-    private void EndWave() {
+    private void EndWave()
+    {
         isSpawning = false;
         timeSinceLastSpawn = 0f;
         currentWave++;
@@ -80,12 +98,32 @@ public class WaveManager : MonoBehaviour {
         StartCoroutine(StartWaveIE());
     }
 
-    private void SpawnEnemy() {
+    private void SpawnEnemy()
+    {
         GameObject prefabToSpaw = enemiesPrefab[Random.Range(0, enemiesPrefab.Length)];
         Instantiate(prefabToSpaw, enemiesSpawnpoint[Random.Range(0, enemiesSpawnpoint.Length)].transform.position, Quaternion.identity);
     }
 
-    private int EnemiesPerWave() {
+    private void SpawnFireWorks()
+    {
+        StartCoroutine(Fireworks());
+    }
+
+    IEnumerator Fireworks()
+    {
+        foreach (GameObject item in fireWorksprefab) {
+            item.SetActive(true);
+        }
+
+        yield return new WaitForSeconds(5f);
+
+        foreach (GameObject item in fireWorksprefab) {
+            item.SetActive(false);
+        }
+    }
+
+    private int EnemiesPerWave()
+    {
         return Mathf.RoundToInt(baseEnemies * Mathf.Pow(currentWave, difficultyScalingFactor));
     }
 }

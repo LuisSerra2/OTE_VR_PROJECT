@@ -60,6 +60,7 @@ public class MovingTarget : MonoBehaviour, IHittable
 
             Vector3 direction = nextposition - transform.position;
             rb.MovePosition(transform.position + direction.normalized * Time.fixedDeltaTime * speed);
+
         }
     }
 }

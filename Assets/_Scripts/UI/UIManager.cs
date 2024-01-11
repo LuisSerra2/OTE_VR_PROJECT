@@ -5,6 +5,20 @@ public class UIManager : Singleton<UIManager> {
 
     public TextMeshProUGUI waveCounterText;
 
+    [Space]
+
+    [Header("Win_Lose")]
+    [SerializeField] private RectTransform win_losePanel;
+    [SerializeField] private TextMeshProUGUI win_loseText;
+    private bool teste = false;
+
+    private void Update()
+    {
+        if (teste) {
+            win_losePanel.localPosition = Vector3.Lerp(win_losePanel.localPosition, Vector3.zero, 3f * Time.deltaTime);
+        }
+    }
+
     #region MainMenuScene
     public void ExitGame() {
         Debug.Log("Exiting...");
@@ -30,6 +44,13 @@ public class UIManager : Singleton<UIManager> {
 
     public void ResetScene() {
         SceneManager.LoadScene("ProtectTheDoor");
+    }
+
+    public void UpdateText(string text)
+    {
+        win_loseText.text = text;
+        win_losePanel.gameObject.SetActive(true);
+        teste = true;
     }
 
     #endregion
