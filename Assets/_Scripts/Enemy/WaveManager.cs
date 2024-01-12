@@ -78,10 +78,10 @@ public class WaveManager : MonoBehaviour {
 
     private IEnumerator StartWaveIE()
     {
-
+        
         yield return new WaitForSeconds(timeBetweenWaves);
 
-        UIManager.Instance.waveCounterText.text = currentWave.ToString() + " / 10";
+        UIManager.Instance.waveCounterText.text = currentWave.ToString() + " / " + LastWave.ToString();
         isSpawning = true;
         enemiesLeftToSpawn = EnemiesPerWave();
     }
