@@ -21,6 +21,7 @@ public class WaveManager : MonoBehaviour {
     public int currentWave = 1;
 
     [Space]
+    public int LastWave;
     private float timeSinceLastSpawn;
     public int enemiesAlive;
     public int enemiesLeftToSpawn;
@@ -38,7 +39,7 @@ public class WaveManager : MonoBehaviour {
 
     private void Start()
     {
-        UIManager.Instance.waveCounterText.text = "0 / 10";
+        UIManager.Instance.waveCounterText.text = "0 / " + LastWave.ToString();
     }
 
     private void Update()
@@ -55,7 +56,7 @@ public class WaveManager : MonoBehaviour {
         }
         if (loseCondition) return;
 
-        if (enemiesAlive == 0 && enemiesLeftToSpawn == 0 && currentWave == 10) {
+        if (enemiesAlive == 0 && enemiesLeftToSpawn == 0 && currentWave == LastWave) {
             UIManager.Instance.UpdateText("WIN");
             return;
         }

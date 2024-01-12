@@ -22,6 +22,7 @@ public class StickingArrow : MonoBehaviour
         }
 
         collision.collider.transform.parent.GetComponent<IHittable>()?.GetHit();
+        TargetManager.Instance.DestroyTarget(collision.collider.transform.parent.gameObject);
 
         Destroy(gameObject);
     }
