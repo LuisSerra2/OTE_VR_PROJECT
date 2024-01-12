@@ -5997,12 +5997,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2253361253874039422, guid: 4634e58a95e4f954781ec82137fd6f8f,
         type: 3}
+      propertyPath: Spatialize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2253361253874039422, guid: 4634e58a95e4f954781ec82137fd6f8f,
+        type: 3}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 7db35e85cb40eb94ab830b1a3560fa65, type: 3}
     - target: {fileID: 2253361253874039422, guid: 4634e58a95e4f954781ec82137fd6f8f,
         type: 3}
       propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2253361253874039422, guid: 4634e58a95e4f954781ec82137fd6f8f,
+        type: 3}
+      propertyPath: SpatializePostEffects
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2253361253874039422, guid: 4634e58a95e4f954781ec82137fd6f8f,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3297568470004903200, guid: 4634e58a95e4f954781ec82137fd6f8f,
