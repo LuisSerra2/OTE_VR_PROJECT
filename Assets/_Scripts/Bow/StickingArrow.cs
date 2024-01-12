@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StickingArrow : MonoBehaviour
-{
+public class StickingArrow : MonoBehaviour {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private SphereCollider sphereCollider;
 
@@ -22,7 +21,9 @@ public class StickingArrow : MonoBehaviour
         }
 
         collision.collider.transform.parent.GetComponent<IHittable>()?.GetHit();
-        TargetManager.Instance.DestroyTarget(collision.collider.transform.parent.gameObject);
+        if (collision.collider.tag == "TARGET") {
+            TargetManager.Instance.DestroyTarget(collision.collider.transform.parent.gameObject);
+        }
 
         Destroy(gameObject);
     }

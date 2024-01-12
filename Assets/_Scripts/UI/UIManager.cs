@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class UIManager : Singleton<UIManager> {
 
     public TextMeshProUGUI waveCounterText;
@@ -19,6 +20,24 @@ public class UIManager : Singleton<UIManager> {
     public string rank;
 
 
+
+    public static Camera cameraDontDestroyOnLoad;
+
+    protected override void Awake() {
+        if (cameraDontDestroyOnLoad == null) {
+            cameraDontDestroyOnLoad = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+
+            DontDestroyOnLoad(cameraDontDestroyOnLoad.gameObject);
+        }
+    }
+
+    void Start() {
+        Canvas[] canvases = GetComponentsInChildren<Canvas>();
+
+        foreach (Canvas canvas in canvases) {
+            canvas.worldCamera = cameraDontDestroyOnLoad;
+        }
+    }
     private void Update() {
         if (teste) {
             win_losePanel.gameObject.SetActive(true);

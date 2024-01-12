@@ -22,12 +22,12 @@ public class EnemyManager : MonoBehaviour {
     }
 
     void Update() {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Input.GetMouseButtonDown(0)) {
-            if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, enemyLayerMask)) {
-                hitInfo.collider.transform.parent.GetComponent<IHittable>()?.GetHit();
-            }
-        }
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //if (Input.GetMouseButtonDown(0)) {
+        //    if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, enemyLayerMask)) {
+        //        hitInfo.collider.transform.parent.GetComponent<IHittable>()?.GetHit();
+        //    }
+        //}
     }
 
     public void HitEnemy(GameObject hitEnemy, int damage, AudioSource shout, AudioSource hurt) {

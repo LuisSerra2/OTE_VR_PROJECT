@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 8469298611099563857}
-  sphereCollider: {fileID: 0}
+  sphereCollider: {fileID: 2515924436249300922}
   stickigArrow: {fileID: 1438836383866266605, guid: 0043d6382d758a449b35fddd30bc3f1e,
     type: 3}
 --- !u!1001 &3107964549286880933
@@ -99,6 +99,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8362636956233555048}
     m_Modifications:
+    - target: {fileID: 705920256066791711, guid: 8e8a25f19bb09394595a59f56ccee6c0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4031904614081241002, guid: 8e8a25f19bb09394595a59f56ccee6c0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7660352602138111307, guid: 8e8a25f19bb09394595a59f56ccee6c0,
         type: 3}
       propertyPath: m_Name
@@ -159,6 +169,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e8a25f19bb09394595a59f56ccee6c0, type: 3}
+--- !u!135 &2515924436249300922 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 705920256066791711, guid: 8e8a25f19bb09394595a59f56ccee6c0,
+    type: 3}
+  m_PrefabInstance: {fileID: 3107964549286880933}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6838116651320348885 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8486025895103067760, guid: 8e8a25f19bb09394595a59f56ccee6c0,

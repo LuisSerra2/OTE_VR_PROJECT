@@ -10,7 +10,7 @@ public class ExplosiveBarrelManager : Singleton<ExplosiveBarrelManager> {
 
     private Dictionary<Vector3, float> barrelTimers = new Dictionary<Vector3, float>();
     private Dictionary<Vector3, Transform> barrelParents = new Dictionary<Vector3, Transform>();
-    private float defaultBarrelSpawnerTimer = 5f;
+    private float defaultBarrelSpawnerTimer = 15f;
 
     private void Update() {
         List<Vector3> barrelsToRemove = new List<Vector3>();
