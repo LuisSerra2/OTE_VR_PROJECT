@@ -29,7 +29,6 @@ public class EnemyController : Singleton<EnemyController>, IHittable {
         waveManager = FindObjectOfType<WaveManager>();
 
         _healthSystem = new HealthSystem(health);
-        enemyAudio[0].pitch = Random.Range(0.8f, 1.5f);
     }
 
     private void Update() {
