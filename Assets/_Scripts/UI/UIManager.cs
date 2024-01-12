@@ -21,6 +21,7 @@ public class UIManager : Singleton<UIManager> {
 
     private void Update() {
         if (teste) {
+            win_losePanel.gameObject.SetActive(true);
             win_losePanel.localPosition = Vector3.Lerp(win_losePanel.localPosition, Vector3.zero, 3f * Time.deltaTime);
         }
 
@@ -29,19 +30,19 @@ public class UIManager : Singleton<UIManager> {
         }
     }
 
-    #region MainMenuScene
-    public void ExitGame() {
-        Application.Quit();
-    }
+    //#region MainMenuScene
+    //public void ExitGame() {
+    //    Application.Quit();
+    //}
 
-    public void PlayGame() {
-        SceneManager.LoadScene("Wave8");
-    }
-    public void GoToTrainingGrounds() {
-        SceneManager.LoadScene("TrainningGround");
-    }
+    //public void PlayGame() {
+    //    SceneManager.LoadScene("Wave8");
+    //}
+    //public void GoToTrainingGrounds() {
+    //    SceneManager.LoadScene("TrainningGround");
+    //}
 
-    #endregion
+    //#endregion
 
     #region Wave8Scene
 
